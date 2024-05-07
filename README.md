@@ -1,0 +1,2 @@
+# AspectProjectMaster
+通过Aspect框架实现Aop面向切面编程，根据实际案例帮助理解Aspect用法

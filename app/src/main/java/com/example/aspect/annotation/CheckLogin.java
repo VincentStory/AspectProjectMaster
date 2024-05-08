@@ -9,4 +9,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckLogin {
+    public String title() default "";
+
+    //是否保存请求的参数
+    public boolean isSaveRequestData() default true;
+
 }

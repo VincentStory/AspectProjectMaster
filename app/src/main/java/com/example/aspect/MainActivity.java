@@ -43,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "权限被拒绝（用户勾选了，不再提醒）", Toast.LENGTH_SHORT).show();
     }
 
-    @CheckLogin
-    public void loginCheck(View view) {
+
+    public void loginClick(View view) {
+       checkLogin("参数1","参数2");
+    }
+
+    @CheckLogin(title = "登录检查", isSaveRequestData = false)
+    public void checkLogin(String str, String str2) {
         Log.i("tag","判断是否登录");
     }
 }

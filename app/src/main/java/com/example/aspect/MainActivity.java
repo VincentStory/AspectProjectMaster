@@ -13,7 +13,7 @@ import com.example.aspect.annotation.Permission;
 import com.example.aspect.annotation.PermissionCancel;
 import com.example.aspect.annotation.PermissionDenied;
 
-// TODO 用户使用角度
+// 用户使用角度
 public class MainActivity extends AppCompatActivity {
 
     @Override

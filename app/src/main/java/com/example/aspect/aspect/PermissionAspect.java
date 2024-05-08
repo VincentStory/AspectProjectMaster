@@ -1,6 +1,6 @@
 package com.example.aspect.aspect;
 
-// TODO 专门处理权限的 Aspect
+// 专门处理权限的 Aspect
 
 import android.content.Context;
 import android.util.Log;
@@ -28,13 +28,13 @@ public class PermissionAspect {
 
     //这里com.example.myapplication.annotation为项目包名
     @Pointcut
-    ("execution(@com.example.aspect.annotation.Permission * *(..)) && @annotation(permission)")
+            ("execution(@com.example.aspect.annotation.Permission * *(..)) && @annotation(permission)")
     public void pointActionMethod(Permission permission) {/* 方法内部不做任何事情，只为了@Pointcut服务*/}
 
     // 对方法环绕监听,pointActionMethod()是指上面定义的方法名，permission是指上面参数名
     @Around("pointActionMethod(permission)")
     public void aProceedingJoinPoint(final ProceedingJoinPoint point, Permission permission) throws Throwable {
-        Log.i("TAG", "before->"+ point.getTarget().toString());
+        Log.i("TAG", "before->" + point.getTarget().toString());
         // 先定义一个上下文操作环境
         Context context = null;
 
@@ -52,8 +52,15 @@ public class PermissionAspect {
             throw new IllegalAccessException("null == context || permission == null is null");
         }
 
-        // 调用权限处理的Activity 申请 检测 处理权限操作  permission.value() == Manifest.permission.READ_EXTERNAL_STORAGE
+        // 执行获取权限的逻辑
+        requestPermission(context, permission, point,thisObject);
+    }
+
+
+
+    private void requestPermission(Context context, Permission permission,ProceedingJoinPoint point, Object thisObject) {
         final Context finalContext = context;
+
         MyPermissionActivity.requestPermissionAction
                 (context, permission.value(), permission.requestCode(), new IPermission() {
                     @Override
@@ -84,7 +91,13 @@ public class PermissionAspect {
     }
 
 
-    // 专门去 callback invoke ---》 MainActivity  被注解的方法
+    /**
+     * 专门去 callback invoke ---》 MainActivity  被注解的方法
+     * 通过反射机制调用被注解标记的函数
+     *
+     * @param object
+     * @param annotationClass
+     */
     public static void invokeAnnotation(Object object, Class annotationClass) {
         // 获取 object 的 Class对象
         Class<?> objectClass = object.getClass();

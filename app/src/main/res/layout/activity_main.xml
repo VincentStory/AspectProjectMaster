@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="loginCheck"
-            android:text="登录监测" />
+            android:text="登录检查" />
 
     </LinearLayout>
 
